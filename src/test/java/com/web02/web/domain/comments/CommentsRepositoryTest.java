@@ -27,21 +27,20 @@ public class CommentsRepositoryTest {
     public void cleanup(){
         commentsRepository.deleteAll();
     }
-    Long commentId= 11L;
+    Long postsId= 11L;
     String content="댓글 내용";
     @Test
     public void 댓글달기(){
         //given
 
         commentsRepository.save(Comments.builder()
-                .commentId(commentId)
                 .content(content)
                 .build());
         //when
         List<Comments> commentsList=commentsRepository.findAll();
         //then
         Comments comments = commentsList.get(0);
-        assertThat(comments.getCommentId()).isEqualTo(commentId);
+
         assertThat(comments.getContent()).isEqualTo(content);
     }
 
@@ -50,7 +49,7 @@ public class CommentsRepositoryTest {
         //given
         LocalDateTime now= LocalDateTime.of(2021,6,26,10,30,0);
         commentsRepository.save(Comments.builder()
-                .commentId(commentId)
+
                 .content(content)
                 .build());
         //when

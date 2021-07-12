@@ -27,15 +27,15 @@ public class Comments extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "POSTS_ID")
-    private Posts posts;
+    private Posts post_id;
 
 
     @Builder
-    public Comments(Long id, String content,String author,Posts posts){
+    public Comments(Long id, String content,String author,Posts post_id){
         this.id=id;
         this.content=content;
         this.author=author;
-        this.posts=posts;
+        this.post_id=post_id;
     }
 
 }

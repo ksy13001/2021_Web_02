@@ -10,6 +10,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CommentsRepository extends JpaRepository<Comments, Long> {
-    @Query("SELECT p FROM Posts p ORDER BY p.id DESC")      //@Query가 가독성이 더 좋음
-    List<Posts> findAllDesc();
+    @Query("SELECT p FROM Comments p ORDER BY p.id DESC")      //@Query가 가독성이 더 좋음
+    List<Comments> findAllDesc();
 }

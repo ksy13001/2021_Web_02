@@ -3,22 +3,19 @@ package com.web02.web;
 
 import com.web02.service.CommentsService;
 import com.web02.service.PostsService;
-import com.web02.web.dto.CommentsDto;
-import com.web02.web.dto.PostsListResponseDto;
+import com.web02.web.dto.CommentsRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @RestController
-public class CommentsApiController {
+public class CommentsController {
 
     private final PostsService postService;
     private final CommentsService commentsService;
 
-    @PostMapping("/api/v1/comments")
-    public Long save(CommentsDto commentsDto){
+    @PostMapping("/api/v1/comments/{posts_id}")
+    public Long save(@RequestBody CommentsRequestDto commentsDto){
          return commentsService.saveComments(commentsDto);
     }
 
@@ -27,6 +24,5 @@ public class CommentsApiController {
         commentsService.delete(id);
         return id;
     }
-
 }
 

@@ -2,7 +2,9 @@ package com.web02.web;
 
 import com.web02.config.auth.LoginUser;
 import com.web02.config.auth.dto.SessionUser;
+import com.web02.service.CommentsService;
 import com.web02.service.PostsService;
+import com.web02.web.dto.CommentsListResponseDto;
 import com.web02.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,11 +18,14 @@ import javax.servlet.http.HttpSession;
 public class IndexController {
 
     private final PostsService postsService;
+    private final CommentsService commentsService;
     private final HttpSession httpSession;
 
     @GetMapping("/")    //   첫화면 index+ 글 조회
-    public String index(Model model,@LoginUser SessionUser user){       //model: postService.findAllDesc()로 가져온 결과 posts로 index.mustache에 전달
+    public String index(Model model,@LoginUser SessionUser user){
+        //model: postService.findAllDesc()로 가져온 결과 posts로 index.mustache에 전달
         model.addAttribute("posts", postsService.findAllDesc());
+        model.addAttribute("comments", commentsService.findAllDesc());
 
         if(user!=null){ //유저값이 없을때만
             model.addAttribute("userName",user.getName());
@@ -33,7 +38,6 @@ public class IndexController {
         return "posts-save";
     }
 
-
     @GetMapping("/posts/update/{id}")    //글 수정화면 이동,id로 구분
     public String postsUpdate(@PathVariable Long id, Model model){
         PostsResponseDto dto = postsService.findById(id);
@@ -41,8 +45,11 @@ public class IndexController {
         return "posts-update";
     }
 
-    @GetMapping("/posts/comments")
-    public String postsView(){
+    @GetMapping("/posts/comments/{posts_id}")
+    public String postsView(@PathVariable Long id, Model model){
+        PostsResponseDto postsResponseDto = postsService.findById(id);
+        model.addAttribute("post",postsResponseDto);
+        model.addAttribute("comments", commentsService.findAllDesc());
         return "posts-view";
     }
 }

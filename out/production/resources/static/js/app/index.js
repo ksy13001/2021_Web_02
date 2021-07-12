@@ -14,24 +14,28 @@ var main = {    //다른 js랑 겹치지 않게
             _this.delete();
         });
 
+         $('#btn-saveComment').on('click', function () {  //삭제 함수 실행
+             _this.saveComment();
+         });
 
     },
     save : function () {
         var data = {
             title: $('#title').val(),   //jquery 객체 title 값 불러오기
             author: $('#author').val(),
-            content: $('#content').val()
+            content: $('#content').val(),
+
         };
 
         $.ajax({
             type: 'POST',       //등록(PostsApiController에서 정의함)
             url: '/api/v1/posts',
-             dataType: 'json',
+            dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
             alert('글이 등록되었습니다.');
-            window.location.href = '/';
+            window.location.href = '/'; //작업 끝나면 메인페이지로 이동
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -73,7 +77,26 @@ var main = {    //다른 js랑 겹치지 않게
             alert(JSON.stringify(error));
         });
     },
+    saveComment:function(){
+        var data = {
+            comments_author:$('#comment_author').val(),
+            comments_content:$('#comment_content').val()
+                    };
+        var id = $('#id').val();
 
+         $.ajax({
+                    type: 'POST',
+                    url: '/api/v1/comments',
+                    dataType: 'json',
+                    contentType:'application/json; charset=utf-8',
+                    data: JSON.stringify(data)
+                }).done(function() {
+                    alert('댓글이 등록되었습니다.');
+                    window.location.href = '/';
+                }).fail(function (error) {
+                    alert(JSON.stringify(error));
+                });
+    }
 
 };
 

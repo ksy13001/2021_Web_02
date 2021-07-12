@@ -1,25 +1,25 @@
 package com.web02.web.dto;
 
 import com.web02.domain.comments.Comments;
+import com.web02.domain.posts.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 @Getter
 @NoArgsConstructor
-public class CommentsDto {
-    private String author;
+public class CommentsRequestDto {
+
     private String content;
+    private String author;
+    private Posts posts_id;
 
     @Builder
-    public CommentsDto(String content, String author){
+    public CommentsRequestDto(String content, String author, Posts posts_id){
         this.content=content;
         this.author=author;
+        this.posts_id=posts_id;
     }
 
     public Comments toEntity(){

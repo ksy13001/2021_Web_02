@@ -13,7 +13,6 @@ public class PostsApiController {
 
     private final PostsService postsService;
 
-
     @PostMapping("/api/v1/posts")   //post request 처리
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
 

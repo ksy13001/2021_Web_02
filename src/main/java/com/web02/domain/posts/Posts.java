@@ -29,14 +29,15 @@ public class Posts extends BaseTimeEntity {
     @Column(nullable = false)
     private String author;
 
-    @OneToMany(mappedBy = "posts")  //N:1 양방향연결 , 1:N x
+    @OneToMany(mappedBy = "post_id")  //N:1 양방향연결 , 1:N x
     private List<Comments> comments=new ArrayList<>();
 
 
     @Builder
-    public Posts(String title, String content, String author,List<Comments> comments) {
-        this.title = title;
-        this.content = content;
+    public Posts(Long id,String title, String content, String author,List<Comments> comments) {
+        this.id=id;
+        this.title  = title;
+        this.content= content;
         this.author = author;
         this.comments=comments;
     }
