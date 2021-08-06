@@ -17,7 +17,7 @@ public class Posts extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="POST_ID")
+    @Column(name="post_id")
     private Long id;
 
     @Column(length = 500, nullable = false)
@@ -29,17 +29,15 @@ public class Posts extends BaseTimeEntity {
     @Column(nullable = false)
     private String author;
 
-    @OneToMany(mappedBy = "post_id")  //N:1 양방향연결 , 1:N x
-    private List<Comments> comments=new ArrayList<>();
-
+    private Long count;
 
     @Builder
-    public Posts(Long id,String title, String content, String author,List<Comments> comments) {
+    public Posts(Long id,String title, String content, String author,Long count) {
         this.id=id;
         this.title  = title;
         this.content= content;
         this.author = author;
-        this.comments=comments;
+        this.count=count;
     }
 
     public void update(String title, String content) {
