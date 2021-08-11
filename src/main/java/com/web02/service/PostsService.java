@@ -6,10 +6,13 @@ import com.web02.web.dto.PostsResponseDto;
 import com.web02.web.dto.PostsUpdateRequestDto;
 import com.web02.web.dto.PostsListResponseDto;
 import com.web02.web.dto.PostsSaveRequestDto;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,4 +58,26 @@ public class PostsService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
+    public List<PostsListResponseDto> searchPosts(String keyword){
+        List<Posts> posts = postsRepository.findByTitleContaining(keyword);
+        List<PostsListResponseDto> postsListResponseDto =new ArrayList<>();
+
+        if(posts.isEmpty()){    //검색결과 없음
+            return postsListResponseDto;
+        }
+        for(Posts post: posts){ //객체 차례대로 삽입
+            postsListResponseDto.add(toDto(post));
+        }
+        return postsListResponseDto;
+    }
+
+    private PostsListResponseDto toDto(Posts post){
+        return PostsListResponseDto.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .author(post.getAuthor())
+                .count(post.getCount())
+                .build();
+    }
 }
