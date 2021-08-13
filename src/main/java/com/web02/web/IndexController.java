@@ -5,14 +5,19 @@ import com.web02.config.auth.dto.SessionUser;
 import com.web02.service.CommentsService;
 import com.web02.service.PostsService;
 import com.web02.web.dto.CommentsListResponseDto;
+import com.web02.web.dto.PostsListResponseDto;
 import com.web02.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;    //model 을 사용하여 View에 데이터 전달
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
@@ -45,11 +50,18 @@ public class IndexController {
         return "posts-update";
     }
 
-    @GetMapping("/posts/comments/{posts_id}")
+    @GetMapping("/posts/{id}/comment")
     public String postsView(@PathVariable Long id, Model model){
         PostsResponseDto postsResponseDto = postsService.findById(id);
         model.addAttribute("post",postsResponseDto);
         model.addAttribute("comments", commentsService.findAllDesc());
         return "posts-view";
+    }
+
+    @GetMapping("/posts/search")
+    public String Search(Model model, @RequestParam(value="keyword") String keyword){
+        List<PostsListResponseDto> postsListResponseDto=postsService.searchPosts(keyword);
+        model.addAttribute("searchList",postsListResponseDto);
+        return "index";
     }
 }
