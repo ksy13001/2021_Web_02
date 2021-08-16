@@ -60,8 +60,8 @@ public class IndexController {
 
     @GetMapping("/posts/search")
     public String Search(Model model, @RequestParam(value="keyword") String keyword){
-        List<PostsListResponseDto> postsListResponseDto=postsService.searchPosts(keyword);
-        model.addAttribute("searchList",postsListResponseDto);
+        List<PostsListResponseDto> searchPostsListDto=postsService.searchPosts(keyword);
+        model.addAttribute("searchList",searchPostsListDto);
         return "index";
     }
 }
