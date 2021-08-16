@@ -67,7 +67,7 @@ public class PostsService {
             return postsListResponseDto;
         }
         for(Posts post: posts){ //객체 차례대로 삽입
-            postsListResponseDto.add(toDto(post));
+            postsListResponseDto.add(this.toDto(post));
         }
         return postsListResponseDto;
     }
