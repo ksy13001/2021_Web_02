@@ -3,6 +3,7 @@ package com.web02.web;
 import com.web02.service.PostsService;
 import com.web02.web.dto.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,6 @@ public class PostsApiController {
 
     @PostMapping("/api/v1/posts")   //post request 처리
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
-
         return postsService.save(requestDto);
     }
 
@@ -43,3 +43,4 @@ public class PostsApiController {
 
 
 }
+
