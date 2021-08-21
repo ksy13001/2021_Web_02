@@ -1,25 +1,13 @@
 {{>layout/header}}
 
-    <h1>Wap 2조</h1>
-    <div class="col-md-12">
-        <div class="row">
-            <div class=col-md-6"></div>
-            <div class=col-md-6">
-                <a href="/posts/save" role="button" class="btn btn-Secondary">글 쓰기</a>
-                {{#userName}}
-                        Logged in as: <span id="user">{{userName}}</span>
-                        <a href="/logout" role="button" class="btn btn-dark">로그 아웃</a>
-                {{/userName}}
-                {{^userName}}
-                        <a href="/oauth2/authorization/google" role="button" class="btn btn-primary">구글 로그인</a>
-                {{/userName}}
-                {{^userName}}
-                    <a href="/oauth2/authorization/naver" role="button" class="btn btn-success">네이버 로그인</a>
-                {{/userName}}
-            </div>
+<div class=row">
+    <form action="/posts/search" method="GET">
+        <div class="search">
+            <input type="text" class="form-control" name="keyword" placeholder="검색어를 입력하세요">
         </div>
-    </div>
-    <br>
+        <button>검색하기</button>
+    </form>
+</div>
 
 <div class="col-md-10">
 <table class="table table-horizontal table-bordered">
@@ -35,7 +23,7 @@
     {{#posts}}
         <tr>
             <td class="col-md-1">{{id}}</td>
-            <td class="col-md-6"><a href="/posts/comments/{{id}}">{{title}}</a>[ ]</td>
+            <td class="col-md-6"><a href="/posts/{{id}}/comment">{{title}}</a>[댓글 수]</td>
             <td class="col-md-1">{{author}}</td>
             <td class="col-md-2">{{modifiedDate}}</td>
         </tr>
@@ -43,5 +31,7 @@
     </tbody>
 </table>
 </div>
+
+
 {{>layout/footer}}
 
