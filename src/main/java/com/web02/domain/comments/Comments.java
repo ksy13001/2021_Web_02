@@ -16,26 +16,26 @@ public class Comments extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="COMMENT_ID")
-    private Long id;
+    @Column(name="comments_id")
+    private Long commentId;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @Column
+    @Column(nullable = false)
     private String author;
 
     @ManyToOne
-    @JoinColumn(name = "POSTS_ID")
-    private Posts post_id;
+    @JoinColumn(name = "post_id")
+    private Posts postId;
 
 
     @Builder
-    public Comments(Long id, String content,String author,Posts post_id){
-        this.id=id;
+    public Comments(Long commentId, String content,String author,Posts postId){
+        this.commentId=commentId;
         this.content=content;
         this.author=author;
-        this.post_id=post_id;
+        this.postId=postId;
     }
 
 }
