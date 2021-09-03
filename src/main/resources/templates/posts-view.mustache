@@ -1,25 +1,35 @@
 {{>layout/header}}
-<h1>Wap 2조</h1>
-    <div class="row">
-    {{#posts}}
-            <div class=col-md-6"> 제목:{{title}}</div>
-    </div>
-    <div class="row">
-            <div class=col-md-6"> 작성자:{{author}}</div>
-    </div>
-    {{/posts}}
-<div class=col-md-6>
-    <div class="form-group">
-        <div class="form-group">
-            <label for="comment_author"> 작성자 </label>
-            <input type="text" class="form-control" id="comment_author" placeholder="작성자를 입력하세요">
-        </div>
-        <div class="form-group">
-        <label for="comment_content">댓글</label>
-        <textarea class="form-control"  id="comments_content" placeholder="댓글을 입력하세요"></textarea>
-        </div>
-    </div>
-</div>
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="title">글 번호</label>
+                <input type="text" class="form-control" id="id" value="{{post.id}}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" class="form-control" id="title" value="{{post.title}}"readonly>
+            </div>
+            <div class="form-group">
+                <label for="author"> 작성자 </label>
+                <input type="text" class="form-control" id="author" value="{{post.author}}" readonly>   <!-- 작성자 수정 x-->
+            </div>
+            <div class="form-group">
+                <label for="content"> 내용 </label>
+                <textareareadonly class="form-control" id="content">{{post.content}}</textareareadonly>
+            </div>
+
+
+            <div class="form-group">
+                <label for="comment_author"> 댓글 작성자 </label>
+                <input type="text" class="form-control" id="comment_author" placeholder="작성자를 입력하세요">
+            </div>
+            <div class="form-group">
+                <label for="comment_content">댓글</label>
+                <textarea class="form-control"  id="comment_content" placeholder="댓글을 입력하세요"></textarea>
+            </div>
+        </form>
 <button type="button" class="btn btn-primary" id="btn-saveComment">댓글 등록</button>
 
 {{>layout/footer}}
