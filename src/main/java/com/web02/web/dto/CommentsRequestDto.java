@@ -5,21 +5,20 @@ import com.web02.domain.posts.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
+@Setter
 @Getter
 @NoArgsConstructor
 public class CommentsRequestDto {
-
     private String content;
     private String author;
-    private Posts posts_id;
-
+    private Long  postNo;
     @Builder
-    public CommentsRequestDto(String content, String author, Posts posts_id){
+    public CommentsRequestDto(String content, String author, Long postNo){
         this.content=content;
         this.author=author;
-        this.posts_id=posts_id;
+        this.postNo=postNo;
     }
 
     public Comments toEntity(){
