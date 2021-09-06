@@ -10,18 +10,21 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-public class CommentsListResponseDto {
-    private Long id;
+public class CommentsListDto {
+    private Long commentId;
     private String author;
     private String content;
-    private Posts posts_id;
+    private Posts post;
     private LocalDateTime modifiedDate;
+    private Long count;
 
-    public CommentsListResponseDto(Comments entity){
-        this.id=entity.getId();
+    public CommentsListDto(Comments entity){
+        this.commentId=entity.getCommentId();
         this.author=entity.getAuthor();
         this.content=entity.getContent();
-        this.posts_id=entity.getPost_id();
+        this.post=entity.getPost();
         this.modifiedDate=entity.getModifiedDate();
     }
+
+
 }

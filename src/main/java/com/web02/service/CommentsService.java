@@ -2,13 +2,20 @@ package com.web02.service;
 
 import com.web02.domain.comments.Comments;
 import com.web02.domain.comments.CommentsRepository;
+import com.web02.domain.posts.Posts;
 import com.web02.domain.posts.PostsRepository;
 import com.web02.web.dto.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -17,23 +24,29 @@ public class CommentsService {
     private  final PostsRepository  postsRepository;
     private final CommentsRepository commentsRepository;
 
-    @Transactional
-    public Long saveComments(CommentsRequestDto commentsDto){
-        return commentsRepository.save(commentsDto.toEntity()).getId();
-    }
 
     @Transactional
-    public void delete (Long id) {
-        Comments comments=commentsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+    public Long saveComments(CommentsRequestDto commentsRequestDto,Long postId){
+        Posts post = postsRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + postId));
+        Comments comments=commentsRequestDto.toEntity();
+        comments.changePost(post);
+
+        return commentsRepository.save(comments).getCommentId();
+    }
+
+
+    @Transactional
+    public void deleteComments(Long commentsId){
+        Comments comments = commentsRepository.findById(commentsId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. commentsId=" + commentsId));
+
         commentsRepository.delete(comments);
     }
 
+    @Transactional
+    public List<CommentsListDto> getCommentList(Long postId){
 
-    @Transactional(readOnly = true) //readOnly >> 트랜잭션 범위를 유지하며 조회 속도 개선// 등록, 수정, 삭제 기능 없는 메소드에사용
-    public List<CommentsListResponseDto> findAllDesc() {
-        return commentsRepository.findAllDesc().stream()
-                .map(CommentsListResponseDto::new) //= map(posts-> new PostsListResponseDto(posts))
-                .collect(Collectors.toList());
+        return commentsRepository.getCommentsOfPost(postId);
     }
 }
