@@ -3,7 +3,8 @@ package com.web02.web;
 import com.web02.service.PostsService;
 import com.web02.web.dto.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class PostsApiController {
     }
 
     @GetMapping("/api/v1/posts/list")
-    public List<PostsListResponseDto> findAll() {
+    public List<PostsListDto> findAll() {
         return postsService.findAllDesc();
     }
 
