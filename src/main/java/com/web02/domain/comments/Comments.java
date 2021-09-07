@@ -12,11 +12,11 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Comments extends BaseTimeEntity {
+public class Comments extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="comments_id")
+    @Column
     private Long commentId;
 
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -25,17 +25,20 @@ public class Comments extends BaseTimeEntity {
     @Column(nullable = false)
     private String author;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Posts postId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "postId")
+    private Posts post;
 
+
+    public void changePost(Posts post) {
+        this.post = post;
+    }
 
     @Builder
-    public Comments(Long commentId, String content,String author,Posts postId){
+    public Comments(Long commentId, String content,String author,Posts post){
         this.commentId=commentId;
         this.content=content;
         this.author=author;
-        this.postId=postId;
+        this.post=post;
     }
-
 }
