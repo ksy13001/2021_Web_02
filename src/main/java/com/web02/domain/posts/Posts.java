@@ -17,7 +17,7 @@ public class Posts extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="post_id")
+    @Column(name="postId")
     private Long id;
 
     @Column(length = 500, nullable = false)
@@ -29,19 +29,31 @@ public class Posts extends BaseTimeEntity {
     @Column(nullable = false)
     private String author;
 
-    private Long count;
+    @Column
+    private int views;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    private List<Comments> comments;
+
+    @Column
+    private int commentsCnt;
 
     @Builder
-    public Posts(Long id,String title, String content, String author,Long count) {
+    public Posts(Long id,String title, String content, String author,int views,List<Comments> comments, int commentsCnt) {
         this.id=id;
         this.title  = title;
         this.content= content;
         this.author = author;
-        this.count=count;
+        this.views=views;
+        this.comments=comments;
+        this.commentsCnt=commentsCnt;
     }
 
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
     }
+
+
+
 }
