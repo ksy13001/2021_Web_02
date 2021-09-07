@@ -9,18 +9,18 @@
     <link rel="stylesheet">
 </head>
 
-<form action="/posts/search" method="GET">
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
-        <button class="btn btn-secondary">검색</button>
-    </div>
-</form>
+
 
 <body>
 <div class="board_wrap">
     <div class="board_title">
-        <strong>게시판</strong>
-        <p>게시물</p>
+        <div></div> <strong>질문게시판</strong></div>
+        <form action="/posts/search" method="GET">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                <button class="btn btn-secondary">검색</button>
+            </div>
+        </form>
     </div>
     <div class="board_list_wrap">
         <div class="board_list">
