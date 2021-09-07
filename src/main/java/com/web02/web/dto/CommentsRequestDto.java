@@ -14,6 +14,7 @@ public class CommentsRequestDto {
     private String content;
     private String author;
     private Long  postNo;
+
     @Builder
     public CommentsRequestDto(String content, String author, Long postNo){
         this.content=content;
